@@ -32,12 +32,43 @@ public class Pure {
     }
 
     public static <T> void printGrid(T[][] grid, Function<T, String> mapFunc) {
-        for( T[] col : grid) {
-            for( T cell : col) {
+        printGrid(grid, mapFunc, false);
+    }
+
+    public static <T> void printGrid(T[][] grid, Function<T, String> mapFunc, boolean withLabel) {
+        if (grid.length == 0) {
+            return;
+        }
+
+        int numRows = grid.length;
+        int rowHeaderLength = Integer.toString(numRows).length();
+        int numColumns = grid[0].length;
+
+        if (withLabel) {
+            String model = "0123456789";
+
+            int numBatches = numColumns / model.length();
+            System.out.println(" ".repeat(rowHeaderLength + 1) + model.repeat(numBatches) + model.substring(0, numColumns % model.length()));
+        }
+
+        for (int i = 0;  i < numRows; i++){
+            T[] col = grid[i];
+            if (withLabel) {
+                System.out.print(lpad(i, rowHeaderLength, ' ') + " ");
+            }
+            for (T cell : col) {
                 System.out.print(mapFunc.apply(cell));
             }
             System.out.println();
         }
+    }
+
+    public static String lpad(int num, int maxSize, char pad) {
+        var intAsStr = Integer.toString(num);
+        var padding = Character.toString(pad).repeat(maxSize);
+        var fullString = (padding + intAsStr);
+        var startIndex = fullString.length() - maxSize;
+        return fullString.substring(startIndex);
     }
 
     public static Function<Integer, String> simpleIntPrint = x -> Integer.toString(x);

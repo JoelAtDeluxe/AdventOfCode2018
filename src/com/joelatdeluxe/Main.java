@@ -13,12 +13,38 @@ public class Main {
             // (new Day03()).solve();
 
             // (new Day04()).solve();
-            (new Day05()).solve();
-
+            // (new Day05()).solve();
+            (new Day06()).solve();
         }
-        catch (IOException e) {
+        catch (Throwable e) {
             e.printStackTrace();
         }
 
+    }
+
+    private static final void dumbListSwitchTest() {
+        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Integer> printList;
+        var i = 0;
+        list.add(i++);
+        list.add(i++);
+        list.add(i++);
+        list.add(i++);
+        list.add(i++);
+        list.add(i++);
+        list.add(i++);
+        list.add(i++);
+
+        while(!list.isEmpty()) {
+            printList = list;
+            list = new ArrayList<>();
+
+            for (Integer v : printList) {
+                if (v % 2 == 0) {
+                    list.add(i++);
+                }
+                System.out.println(v);
+            }
+        }
     }
 }
